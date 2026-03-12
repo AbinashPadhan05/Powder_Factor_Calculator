@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Powder Factor Calculator</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+min-height:100vh;
+padding:40px;
+color:white;
+animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+letter-spacing:1px;
+}
+
+.container{
+display:flex;
+gap:25px;
+margin-bottom:30px;
+}
+
+/* Cards */
+
+.box{
+flex:1;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:12px;
+transition:transform 0.3s, box-shadow 0.3s;
+}
+
+.box:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Labels */
+
+label{
+display:block;
+margin-top:15px;
+font-size:14px;
+}
+
+/* Inputs */
+
+input{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:none;
+border-radius:6px;
+outline:none;
+font-size:15px;
+transition:0.3s;
+}
+
+input:focus{
+box-shadow:0 0 8px #00e5ff;
+transform:scale(1.02);
+}
+
+/* Button */
+
+button{
+margin-top:20px;
+padding:12px;
+width:100%;
+border:none;
+border-radius:8px;
+background:#00c6ff;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* Output */
+
+#result{
+margin-top:20px;
+line-height:1.8;
+font-size:16px;
+}
+
+/* Image section */
+
+.image-section{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+padding:25px;
+border-radius:12px;
+text-align:center;
+transition:0.3s;
+}
+
+.image-section:hover{
+transform:scale(1.01);
+}
+
+img{
+max-width:100%;
+margin-top:15px;
+border-radius:10px;
+transition:0.4s;
+}
+
+img:hover{
+transform:scale(1.05);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Powder Factor Calculator</h1>
+
+<div class="container">
+
+<div class="box">
+
+<h2>Input Parameters</h2>
+
+<label>Burden (m)</label>
+<input type="number" id="burden">
+
+<label>Spacing (m)</label>
+<input type="number" id="spacing">
+
+<label>Bench Height (m)</label>
+<input type="number" id="height">
+
+<label>Explosive per Hole (kg)</label>
+<input type="number" id="explosive">
+
+<label>Rock Density (t/m³)</label>
+<input type="number" id="density" step="0.01">
+
+<button onclick="calculate()">Calculate</button>
+
+</div>
+
+<div class="box">
+
+<h2>Output</h2>
+
+<p id="result">Results will appear here</p>
+
+</div>
+
+</div>
+
+
+<div class="image-section">
+
+<h2>Bench Blasting Pattern</h2>
+
+<img src="https://i.ytimg.com/vi/yLh7v9v1fvo/mqdefault.jpg">
+
+</div>
+
+
+
+<script>
+
+function calculate(){
+
+let B = parseFloat(document.getElementById("burden").value);
+let S = parseFloat(document.getElementById("spacing").value);
+let H = parseFloat(document.getElementById("height").value);
+let E = parseFloat(document.getElementById("explosive").value);
+let D = parseFloat(document.getElementById("density").value);
+
+if(!B || !S || !H || !E || !D){
+document.getElementById("result").innerHTML="Please enter all values";
+return;
+}
+
+let volume = B*S*H;
+let mass = volume*D;
+
+let pf_v = volume/E;
+let pf_m = mass/E;
+
+document.getElementById("result").innerHTML =
+"Rock Volume per Hole = "+volume.toFixed(2)+" m³<br><br>"+
+"Rock Mass per Hole = "+mass.toFixed(2)+" tonnes<br><br>"+
+"Powder Factor (Volume Basis) = "+pf_v.toFixed(2)+" m³/kg<br><br>"+
+"Powder Factor (Mass Basis) = "+pf_m.toFixed(2)+" t/kg";
+
+}
+
+</script>
+
+</body>
+</html>
